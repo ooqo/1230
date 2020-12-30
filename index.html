@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>EasyView - Guide</title>
+    <!-- Global stylesheets -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet"
+        type="text/css">
+    <link href="./global_assets/css/icons/icomoon/styles.css" rel="stylesheet" type="text/css">
+    <link href="./assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="./assets/css/bootstrap_limitless.min.css" rel="stylesheet" type="text/css">
+    <link href="./assets/css/layout.min.css" rel="stylesheet" type="text/css">
+    <link href="./assets/css/components.min.css" rel="stylesheet" type="text/css">
+    <link href="./assets/css/colors.min.css" rel="stylesheet" type="text/css">
+    <!-- /global stylesheets -->
+
+    <!-- Core JS files -->
+    <script src="./global_assets/js/main/jquery.min.js"></script>
+    <script src="./global_assets/js/main/bootstrap.bundle.min.js"></script>
+    <script src="./global_assets/js/plugins/loaders/blockui.min.js"></script>
+    <script src="./global_assets/js/plugins/ui/ripple.min.js"></script>
+    <!-- /core JS files -->
+
+    <!-- Theme JS files -->
+    <script src="./global_assets/js/plugins/visualization/d3/d3.min.js"></script>
+    <script src="./global_assets/js/plugins/visualization/d3/d3_tooltip.js"></script>
+    <script src="./global_assets/js/plugins/forms/styling/switchery.min.js"></script>
+    <script src="./global_assets/js/plugins/forms/selects/bootstrap_multiselect.js"></script>
+    <script src="./global_assets/js/plugins/ui/moment/moment.min.js"></script>
+    <script src="./global_assets/js/plugins/pickers/daterangepicker.js"></script>
+
+    <script src="./assets/js/app.js"></script>
+    <script src="./global_assets/js/demo_pages/dashboard.js"></script>
+    <!-- /theme JS files -->
+
+</head>
+
+<body>
+
+    <!-- Page content -->
+    <div class="page-content">
+
+        <!-- Main sidebar -->
+        <div class="sidebar sidebar-light sidebar-main sidebar-expand-md">
+
+            <!-- Sidebar mobile toggler -->
+            <div class="sidebar-mobile-toggler text-center">
+                <a href="#" class="sidebar-mobile-main-toggle">
+                    <i class="icon-arrow-left8"></i>
+                </a>
+                <span class="font-weight-semibold">Navigation</span>
+                <a href="#" class="sidebar-mobile-expand">
+                    <i class="icon-screen-full"></i>
+                    <i class="icon-screen-normal"></i>
+                </a>
+            </div>
+            <!-- /sidebar mobile toggler -->
+
+
+            <!-- Sidebar content -->
+            <div class="sidebar-content">
+
+                <!-- Main navigation -->
+                <div class="card card-sidebar-mobile">
+                    <ul class="nav nav-sidebar" data-nav-type="accordion" id="menu">
+                        <!-- Download -->
+                        <li class="nav-item-header">
+                            <div class="text-uppercase font-size-xs line-height-xs">下载</div> <i class="icon-menu"
+                                title="Main"></i>
+                        </li>
+                        <li class="nav-item">
+                            <a id="setup" href="http://easyview.seepln.com/excel/DownloadFile?t=setup"
+                                class="nav-link active">
+                                <i class="icon-box-add"></i>
+                                <span>
+                                    安装包
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a id="update" href="http://easyview.seepln.com/excel/DownloadFile?t=update"
+                                class="nav-link active">
+                                <i class="icon-upload"></i>
+                                <span>
+                                    升级包
+                                </span>
+                            </a>
+                        </li>
+                        <!-- Download -->
+                        <li class="nav-item-header">
+                            <div class="text-uppercase font-size-xs line-height-xs">错误信息</div> <i class="icon-menu"
+                                title="Main"></i>
+                        </li>
+
+                        <!-- List -->
+                        <li class="nav-item">
+                            <a id="show_error_list" href="#" class="nav-link active">
+                                <i class="icon-cancel-circle2"></i>
+                                <span onclick="ShowList()">
+                                    错误码查询
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- /main navigation -->
+
+            </div>
+            <!-- /sidebar content -->
+
+        </div>
+        <!-- /main sidebar -->
+
+
+
+        <!-- Main content -->
+        <div class="content-wrapper">
+            <div class="page-header page-header-light">
+                <div class="page-header-content header-elements-md-inline">
+                    <div class="page-title d-flex">
+                        <h3><img class="mr-1" src="./assets/img/seepln32.ico" /> <span
+                                class="font-weight-semibold">EasyView</span> </h3>
+                        <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="breadcrumb-line breadcrumb-line-light header-elements-md-inline">
+                <div class="d-flex">
+                    <div class="breadcrumb" id="contentPath">
+                        <a href="index.html" class="breadcrumb-item"><i class="icon-home2 mr-2"></i> 主页</a>
+                    </div>
+                    <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
+                </div>
+            </div>
+            <iframe id="doc" style="border: none; width: 100%; height: 100%; padding-left: 0rem"></iframe>
+
+            <!-- /main content -->
+            <div class="content">
+
+            </div>
+            <!-- /main content -->
+
+        </div>
+        <!-- /page content -->
+</body>
+<script>
+    var menu = {
+        reOrder: function (arr) {
+            if (titleObj) {
+                for (let name in titleObj) {
+                    if (titleObj[name].index > -1) {
+                        for (let i = 0; i < arr.length; i++) {
+                            if (arr[i].name.replace(".html", "") == name) {
+                                let obj = arr[i];
+                                //title
+                                obj.title = titleObj[name].title;
+                                //排序
+                                if (titleObj[name].index > -1) {
+                                    arr.splice(i, 1);//delete
+                                    arr.splice(0, 0, obj);//insert to 0
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        createMenu: function (menuArr, path, cls = "", parentDom = null) {
+            var domArr = [];
+            this.reOrder(menuArr);
+            for (let i = 0; i < menuArr.length; i++) {
+                let dom = null;
+                if (menuArr[i].content) {
+                    if (menuArr[i].name.indexOf(".files") == -1) {
+                        let name = menuArr[i].title || menuArr[i].name;
+                        dom = this.createFolder(menuArr[i].content, name, name, path + menuArr[i].name + "/", parentDom, cls);
+                    }
+                } else {
+                    if (menuArr[i].name.indexOf(".html") > -1) {
+                        let name = menuArr[i].title || menuArr[i].name.replace(".html", "");
+                        dom = this.createItem(name, name, path + menuArr[i].name, parentDom, cls);
+                    }
+                }
+                if (dom) domArr.push(dom);
+            }
+            return domArr;
+        },
+        createItem: function (itemName, fullpath, path, parentDom, cls = "") {
+            let dom = $(`<li class="nav-item active"><a href="#" class="nav-link" fullpath="${fullpath}" path="${path}"><i class="icon-file-text2"></i><span>${itemName}</span></a></li>`);
+            dom.find("a").click(function () {
+                $("#contentPath").html(`<a href="index.html" class="breadcrumb-item" id="mainmenu"><i class="icon-home2 mr-2"></i> 主页</a>`);
+                let fullpath = $(this).attr("fullpath");
+                let arr = fullpath.split("/");
+                for (let i = 0; i < arr.length; i++) {
+                    let acCls = ""
+                    if (i == arr.length - 1) acCls = "active";
+                    $("#contentPath").append($(`<span class="breadcrumb-item ${acCls}">${arr[i]}</span>`))
+                }
+                $("#doc").attr("src", $(this).attr("path"));
+            });
+            if (parentDom != null) {
+                parentDom.find("ul").first().append(dom);
+            }
+            return dom;
+        },
+        createFolder: function (content, folderName, fullpath, path, parentDom = null, cls = "") {
+            let dom = $(`<li class="nav-item nav-item-submenu ${cls}">
+							<a href="#" class="nav-link"><i class="icon-folder"></i> <span>${folderName}</span></a>
+							<ul class="nav nav-group-sub" data-submenu-title="${folderName}"></ul></li>`);
+            if (parentDom != null) parentDom.find("ul").first().append(dom);
+            this.reOrder(content);
+            for (let i = 0; i < content.length; i++) {
+                if (content[i].content) {
+                    if (content[i].name.indexOf(".files") == -1) {
+                        let name = content[i].title || content[i].name;
+                        let dom1 = this.createFolder(content[i].content, fullpath + "/" + name, path + content[i].name + "/", dom, cls);
+                    }
+                } else {
+                    if (content[i].name.indexOf(".html") > -1) {
+                        let name = content[i].title || content[i].name.replace(".html", "");
+                        let dom1 = this.createItem(name, fullpath + "/" + name, path + content[i].name, dom, cls);
+                    }
+                }
+            }
+            return dom;
+        },
+    }
+    //$(document).ready(function(){
+    var titleArr = [];
+    var titleObj = null;
+    try { titleArr = JSON.parse(GetTitleList().res); } catch { }
+    if (titleArr.length > 0) {
+        titleObj = {};
+        for (let i = 0; i < titleArr.length; i++) {
+            let name = titleArr[i].filename;
+            let title = titleArr[i].title;
+            let index = titleArr[i].index || -1;
+            titleObj[name] = { title: title, index: index };
+        }
+    }
+    var LocString = String(window.document.location.href);
+    let showAdmin = true;
+    if (LocString.indexOf("?user") > -1) showAdmin = false;
+    var userMenu = GetFileList("user");
+    var userTitleDom = $(`<li class="nav-item-header"><div class="text-uppercase font-size-xs line-height-xs">用户手册</div> <i class="icon-menu" title="User"></i></li>`);
+    $("#menu").append(userTitleDom);
+    var userDomArr = menu.createMenu(JSON.parse(userMenu.res), "html/user/");
+    for (let i = 0; i < userDomArr.length; i++) {
+        $("#menu").append(userDomArr[i]);
+    }
+    if (showAdmin) {
+        var adminMenu = GetFileList("admin");
+        var adminTitleDom = $(`<li class="nav-item-header adminDoc"><div class="text-uppercase font-size-xs line-height-xs">管理员手册</div> <i class="icon-menu" title="Admin"></i></li>`);
+        $("#menu").append(adminTitleDom);
+        var adminDomArr = menu.createMenu(JSON.parse(adminMenu.res), "html/admin/", "adminDoc");
+        for (let i = 0; i < adminDomArr.length; i++) {
+            $("#menu").append(adminDomArr[i]);
+        }
+    }
+    //});
+    function GetFileList(folderName) {
+        var resObj = {};
+        $.ajax({
+            url: "http://easyview.seepln.com/help/GetFileList",
+            //url: "http://spread.proinnova.com.cn:8181/excel/GetFileList",
+            type: "POST",
+            contentType: "application/json;charset=utf-8",
+            async: false,
+            data: JSON.stringify({
+                folderName: folderName,
+            }),
+            success: function (res) {
+                resObj.res = res;
+            },
+            error: function (XMLHttpRequest) {
+                resObj.err = {};
+                resObj.err.Message = XMLHttpRequest.statusText;
+            },
+        });
+        return resObj;
+    }
+    function GetTitleList() {
+        var resObj = {};
+        $.ajax({
+            url: "http://easyview.seepln.com/help/EXCOMM",
+            type: "POST",
+            contentType: "application/x-www-form-urlencoded;charset=UTF-8",
+            async: false,
+            data: {
+                db: "excel",
+                tojson: true,
+                comm: "SELECT * FROM easyview_helpdoctitle t order by t.index desc"
+            },
+            success: function (res) {
+                resObj.res = res;
+            },
+            error: function (XMLHttpRequest) {
+                resObj.err = {};
+                resObj.err.Message = XMLHttpRequest.statusText;
+            },
+        });
+        return resObj;
+    }
+
+    function ShowList() {
+        $("#doc").attr("src", "./html/error_list.html");
+    }
+</script>
+
+</html>

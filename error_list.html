@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <h1>error_list</h1>
+    <button>获取</button>
+    <textarea name="err" id="err" cols="30" rows="10"></textarea>
+    <div>abc+${app}</div>
+
+    <script>
+        var resObj = {};
+        var app;
+        var datatime;
+        var err;
+        var id;
+        var tenant;
+        var url;
+        var user;
+
+        $(document).ready(function () {
+            // $('button').click(function () {
+            $.ajax({
+                url: "http://easyview.seepln.com/help/EXCOMM",
+                type: "POST",
+                contentType: "application/x-www-form-urlencoded;charset=UTF-8",
+                async: false,
+                data: {
+                    db: "excel",
+                    tojson: true,
+                    comm: "SELECT * FROM easyview_errorinfo where id=10"
+                },
+                success: function (res) {
+                    resObj.res = res;
+                    console.log(res);
+                    $('#err').val(JSON.stringify(res, null, "\t"));
+                    var txt = JSON.stringify(res);
+                    txt = txt.substring(0, txt.length - 2);
+                    txt = txt.substring(2);
+                    console.log(txt);
+                    txt = txt.replaceAll("\\", "");
+                    console.log(txt);
+                    var obj = JSON.parse(txt);
+                    console.log(obj);
+                    app = obj.app;
+                    datetime = obj.datetime;
+                    err = obj.err;
+                    id = obj.id;
+                    tenant = obj.tenant;
+                    url = obj.url;
+                    user = obj.user;
+
+                },
+                error: function (XMLHttpRequest) {
+                    resObj.err = {};
+                    resObj.err.Message = XMLHttpRequest.statusText;
+                },
+            });
+
+            console.log(app);
+
+        });
+        // })
+    </script>
+</body>
+
+</html>
